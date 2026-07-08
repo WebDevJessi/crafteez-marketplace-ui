@@ -28,3 +28,7 @@ section.listing a::after {
   content: '\203A';
   margin-left: 5px;
 }
+
+.example-spacer {
+  flex: 1 1 auto;
+}

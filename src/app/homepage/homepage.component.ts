@@ -10,4 +10,5 @@ templateUrl: './homepage.component.html',
 export class HomepageComponent {
   appTitle = 'Crafteez';
   subTitle = 'Crafting all kinds of things';
+  currentBackground = "url('assets/background.jpg')";
 }

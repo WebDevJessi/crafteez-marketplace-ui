@@ -1,4 +1,6 @@
 @for (product of products; track product.id) {
+  <mat-card class ="product-card" appearance="outlined">
   <app-product-card [product]="product"></app-product-card>
+  </mat-card>
 }
 <p>product list in!</p>

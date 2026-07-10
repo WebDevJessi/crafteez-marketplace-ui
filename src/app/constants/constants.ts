@@ -1,0 +1,4 @@
+export const LABELS = {
+  HOMEPAGE: 'HOMEPAGE',
+  PRODUCT_CARD: 'PRODUCT CARD'
+}

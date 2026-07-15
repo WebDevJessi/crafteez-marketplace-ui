@@ -1,17 +1,12 @@
- <igx-carousel indicatorsOrientation="top" [navigation]="false">
-    <ng-template igxCarouselNextButton>
-      <button type="button" igxButton="fab" igxRipple="white">
-        <igx-icon name="add"></igx-icon>
-      </button>
-    </ng-template>
+<div [style.background]="currentBackground" class="bg-link">
+<igx-carousel indicatorsOrientation="top">
+
     <igx-slide *ngFor="let slide of slides">
       <div class="image-container">
         <img [src]="slide.src" />
       </div>
     </igx-slide>
   </igx-carousel>
-  <div [style.background]="currentBackground" class="bg-link">
-
   <p>{{appTitle}}</p>
 <p>{{subTitle}}</p>
 </div>

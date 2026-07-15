@@ -30,14 +30,11 @@ body, html {
 
 :host ::ng-deep {
     .image-container {
-        width: 100%;
         display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: auto;
     }
 
     .igx-carousel {
+        max-height: 75%;
         max-width: 100%;
         width: unset;
     }
@@ -48,6 +45,7 @@ body, html {
         align-items: center;
         max-width: 100%;
         width: unset;
+        background: transparent;
     }
 
     .igx-slide .image-container img {
@@ -64,4 +62,8 @@ body, html {
         display: flex;
         justify-content: center;
     }
+    .igx-icon {
+  background: transparent;
 }
+}
+

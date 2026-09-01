@@ -1,8 +1,29 @@
 .product-card {
   max-width: 400px;
-  margin-bottom: 8px;
+  position: relative;
+  z-index: 10;
 }
 
-.image-class {
-  max-width: 400px;
+.mat-mdc-card-sm-image {
+  width: 400px;
+  height: 400px;
+}
+
+.bg-link {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/assets/background.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 77vh;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
 }

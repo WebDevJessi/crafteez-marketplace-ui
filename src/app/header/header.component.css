@@ -3,6 +3,17 @@
 }
 
 .main-header {
-  background-image: url('/assets/background.jpg'); /* */
-  background-size: cover; /* */
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(40, 30, 15, 0.38);
+  background-image: none;
+  color: #fff;
+}
+
+.main-header .mat-mdc-button-base,
+.main-header span,
+.main-header img {
+  position: relative;
+  z-index: 1;
 }

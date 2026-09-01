@@ -1,12 +1,10 @@
 
-/* The entire-page clickable link */
+/* The entire-page background should sit behind the header and content */
 .bg-link {
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1; /* Pushes the background behind your content */
-    background-image: url('/src/assets/background.jpg');
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image: url('/assets/background.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;

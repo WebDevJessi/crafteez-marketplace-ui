@@ -2,12 +2,13 @@ import { Routes } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductListComponent } from './product-list/product-list.component';
-import { HousingLocationComponent } from './housing-location/housing-location.component';
+import { CartComponent } from './cart/cart.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AboutComponent } from './about/about.component';
 
 export const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomepageComponent,
     title: 'Home Page',
   },
@@ -20,7 +21,11 @@ export const routes: Routes = [
     component: ProductListComponent,
   },
   {
-    path: 'housing',
-    component: HousingLocationComponent,
+    path: 'cart',
+    component: CartComponent,
+  },
+    {
+    path: 'about',
+    component: AboutComponent,
   }
 ];

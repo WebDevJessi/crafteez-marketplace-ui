@@ -11,9 +11,8 @@ import { MatCardModule } from '@angular/material/card';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent {
   protected products: Product[] = PRODUCTS;
-  ngOnInit() {
-    console.log('helloooo');
-  }
+
+  currentBackground = "url('assets/background.jpg')";
 }

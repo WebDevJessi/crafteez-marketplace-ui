@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HousingLocationComponent } from './housing-location.component';
+import { HousingLocationComponent } from './cart.component';
 
 describe('HousingLocationComponent', () => {
   let component: HousingLocationComponent;
@@ -11,7 +11,7 @@ describe('HousingLocationComponent', () => {
       imports: [HousingLocationComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(HousingLocationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

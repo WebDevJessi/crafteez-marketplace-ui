@@ -1,12 +1,20 @@
 <div [style.background]="currentBackground" class="bg-link">
-<igx-carousel indicatorsOrientation="top">
-
+  <div class="banner"></div>
+  <igx-carousel indicatorsOrientation="bottom">
     <igx-slide *ngFor="let slide of slides">
       <div class="image-container">
-        <img [src]="slide.src" />
+        <img *ngIf="slide.type === 'image'" [src]="slide.src" [alt]="appTitle" />
+        <video
+          *ngIf="slide.type === 'video'"
+          [src]="slide.src"
+          autoplay
+          muted
+          loop
+          playsinline
+        ></video>
       </div>
     </igx-slide>
   </igx-carousel>
   <p>{{appTitle}}</p>
-<p>{{subTitle}}</p>
+  <p>{{subTitle}}</p>
 </div>

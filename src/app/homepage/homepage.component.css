@@ -35,6 +35,7 @@ body, html {
         max-height: 75%;
         max-width: 100%;
         width: unset;
+        margin-top: 126px;
     }
 
     .igx-slide {
@@ -47,9 +48,17 @@ body, html {
     }
 
     .igx-slide .image-container img {
-        object-fit: fill;
+       object-fit: fill;
         display: block;
         margin: auto;
+    }
+
+      .igx-slide .image-container video {
+        object-fit: cover;
+        display: block;
+        margin: auto;
+        max-width: 100%;
+        max-height: 75vh;
     }
 
     form {
@@ -65,3 +74,10 @@ body, html {
 }
 }
 
+.banner {
+  z-index: 1;
+  transform: rotate(var(--scrolling-content-rotation)) translate(calc(var(--transform-logical-flip) * -1%));
+  transform-origin: 0;
+  width: 102%;
+  position: relative;
+}

@@ -17,3 +17,7 @@
   position: relative;
   z-index: 1;
 }
+
+.mat-toolbar h2 {
+  font-family: "Courier New"
+}

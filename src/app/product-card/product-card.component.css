@@ -2,11 +2,14 @@
   max-width: 400px;
   position: relative;
   z-index: 10;
+  background: rgba(40, 30, 15, 0.38);
+  background-image: none;
 }
 
 .mat-mdc-card-sm-image {
-  width: 400px;
-  height: 400px;
+width: 100%;
+  height: 300px;
+  object-fit: cover;
 }
 
 .bg-link {
@@ -22,8 +25,9 @@
 .content-wrapper {
   position: relative;
   z-index: 1;
-  min-height: 77vh;
+  min-height: 7vh;
   padding: 24px;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
+  padding-left: 100px;
 }

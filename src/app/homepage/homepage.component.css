@@ -8,6 +8,8 @@
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
+    overflow-x: hidden; /* Disables horizontal scrolling */
+    overflow-y: auto;
 }
 
 /* Ensure body doesn't add scrollbars */
@@ -16,7 +18,8 @@ body, html {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Disables horizontal scrolling */
+    overflow-y: auto;
 }
 
 

@@ -10,7 +10,7 @@ export const routes: Routes = [
   {
     path: '',
     component: HomepageComponent,
-    title: 'Home Page',
+    title: 'Crafteez - Crafting all kinds of things',
   },
   {
     path: 'product-card',

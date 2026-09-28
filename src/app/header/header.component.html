@@ -1,11 +1,13 @@
 <mat-toolbar class="main-header">
   <h2>Crafteez Marketplace</h2>
-  <img src="/assets/star.svg" width="80px">
+  <img src="/assets/star.svg" width="80px" alt="Crafteez star">
   <span class="example-spacer"></span>
-  <a mat-button routerLink="/" routerLinkActive="active">Home</a>
-  <a mat-button routerLink="/app-product-list" routerLinkActive="active">Products</a>
-  <a mat-button routerLink="/cart" routerLinkActive="active">Cart</a>
-  <a mat-button routerLink="/about" routerLinkActive="active">About</a>
+  <nav class="header-nav" aria-label="Main navigation">
+    <a mat-button routerLink="/" routerLinkActive="active">Home</a>
+    <a mat-button routerLink="/app-product-list" routerLinkActive="active">Products</a>
+    <a mat-button routerLink="/cart" routerLinkActive="active">Cart</a>
+    <a mat-button routerLink="/about" routerLinkActive="active">About</a>
+  </nav>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

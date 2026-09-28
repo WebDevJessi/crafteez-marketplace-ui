@@ -1,9 +1,9 @@
 <div [style.background]="currentBackground" class="bg-link">
-  <p class="banner" style="padding-top: 0px;top: 68px;margin-top: 0px;">Unleash Your Creativity</p>
+  <div class="banner"><img src="/assets/Unleash Your creativity.png" width="100%"></div>
   <igx-carousel indicatorsOrientation="bottom">
     <igx-slide *ngFor="let slide of slides">
       <div class="image-container">
-        <img *ngIf="slide.type === 'image'" [src]="slide.src" [alt]="appTitle" />
+        <img *ngIf="slide.type === 'image'" [src]="slide.src" />
         <video
           *ngIf="slide.type === 'video'"
           [src]="slide.src"
@@ -15,6 +15,68 @@
       </div>
     </igx-slide>
   </igx-carousel>
-  <p>{{appTitle}}</p>
-  <p>{{subTitle}}</p>
+
+
+  <section class="welcome-section" aria-labelledby="welcome-title">
+    <p class="section-kicker">A marketplace for making</p>
+    <h1 id="welcome-title">Find something lovely<br /><em>to make with.</em></h1>
+    <p class="welcome-copy">
+      Materials, kits, and small sparks of inspiration for wherever your
+      curiosity takes you next.
+    </p>
+    <a class="primary-link" routerLink="/app-product-list">Browse all products <span aria-hidden="true">&#8594;</span></a>
+  </section>
+
+  <section class="category-section" aria-labelledby="category-title">
+    <div class="section-heading">
+      <div>
+        <p class="section-kicker">Start somewhere</p>
+        <h2 id="category-title">Shop by mood</h2>
+      </div>
+      <a class="text-link" routerLink="/app-product-list">See everything <span aria-hidden="true">&#8594;</span></a>
+    </div>
+    <div class="category-grid">
+      @for (category of categories; track category.name) {
+        <a class="category-card" routerLink="/app-product-list">
+          <img [src]="category.image" [alt]="category.name" />
+          <div class="category-overlay">
+            <h3>{{ category.name }}</h3>
+            <p>{{ category.detail }}</p>
+          </div>
+        </a>
+      }
+    </div>
+  </section>
+
+  <section class="featured-section" aria-labelledby="featured-title">
+    <div class="section-heading">
+      <div>
+        <p class="section-kicker">A few favorites</p>
+        <h2 id="featured-title">Made for your next idea</h2>
+      </div>
+      <a class="text-link" routerLink="/app-product-list">View collection <span aria-hidden="true">&#8594;</span></a>
+    </div>
+    <div class="featured-grid">
+      @for (product of featuredProducts; track product.id) {
+        <article class="featured-card">
+          <img [src]="product.imageUrl" [alt]="product.name" />
+          <div class="featured-details">
+            <div>
+              <h3>{{ product.name }}</h3>
+              <p>{{ product.description }}</p>
+            </div>
+            <span class="price">{{ product.price | currency:'USD':'symbol':'1.0-0' }}</span>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="maker-callout" aria-labelledby="maker-title">
+    <div>
+      <p class="section-kicker">For the curious hands</p>
+      <h2 id="maker-title">Your next favorite<br /><em>project starts here.</em></h2>
+    </div>
+    <a class="light-link" routerLink="/about">Meet the maker <span aria-hidden="true">&#8594;</span></a>
+  </section>
 </div>

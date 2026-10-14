@@ -1,3 +1,20 @@
-@for (product of products; track product.id) {
-  <app-product-card [product]="product"></app-product-card>
-}
+<main class="product-list-page">
+  <header class="product-list-heading">
+    <p class="eyebrow">The Crafteez collection</p>
+    <h1>Find your next <em>creative spark.</em></h1>
+  </header>
+
+  @if (loading) {
+    <p class="products-status" role="status">Loading products…</p>
+  } @else if (errorMessage) {
+    <p class="products-status products-error" role="alert">{{ errorMessage }}</p>
+  } @else if (products.length === 0) {
+    <p class="products-status">No products are currently available.</p>
+  } @else {
+    <section class="products-grid" aria-label="Available products">
+      @for (product of products; track product.id) {
+        <app-product-card [product]="product" (addToCart)="onAddToCart($event)"></app-product-card>
+      }
+    </section>
+  }
+</main>

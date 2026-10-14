@@ -12,6 +12,8 @@
   z-index: 10;
   background: rgba(40, 30, 15, 0.38);
   background-image: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .mat-mdc-card-sm-image {
@@ -35,4 +37,35 @@
   position: relative;
   z-index: 1;
   height: 100%;
+}
+
+.mat-product-details {
+  flex: 1;
+  color: #fff8ed;
+  line-height: 1.5;
+}
+
+.product-card-actions {
+  padding: 0 16px 18px;
+}
+
+.add-to-cart-button {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 999px;
+  background: #f6c957;
+  color: #2c241c;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.add-to-cart-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18);
+}
+
+.add-to-cart-button:focus-visible {
+  outline: 3px solid #fff8ed;
+  outline-offset: 3px;
 }

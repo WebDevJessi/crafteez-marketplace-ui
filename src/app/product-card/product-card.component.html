@@ -10,5 +10,16 @@
         <mat-card-content class="mat-product-details">
           {{ product.description }}
         </mat-card-content>
+        <mat-card-actions class="product-card-actions">
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            class="add-to-cart-button"
+            (click)="onAddToCart()"
+          >
+            Add to cart
+          </button>
+        </mat-card-actions>
         </mat-card>
         </div>

@@ -21,7 +21,6 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/assets/star.svg",
               "src/assets"
             ],
             "styles": [
@@ -90,7 +89,6 @@
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
-              "src/assets/star.svg",
               "src/assets"
             ],
             "styles": [

@@ -13,7 +13,7 @@ import { PRODUCTS } from '../product-list/product-data';
 })
 export class HomepageComponent {
   currentBackground = "url('assets/background.jpg')";
-  bannerBackground = "url('assets/Unleash Your Creativity.png')";
+  bannerBackground = "url('assets/Unleash_Your_creativity-removebg-preview.png')";
   featuredProducts = PRODUCTS.slice(0, 4);
   categories = [
     { name: 'Soft & squishy', detail: 'Playful sensory favorites', image: '/assets/rainbow-cloud.jpg' },

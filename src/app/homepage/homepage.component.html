@@ -1,6 +1,6 @@
 <div [style.background]="currentBackground" class="bg-link">
-  <div class="banner"><img src="/assets/Unleash Your creativity.png" width="100%"></div>
-  <igx-carousel indicatorsOrientation="bottom">
+  <div class="banner"><img src="/assets/Unleash_Your_creativity-removebg-preview.png"></div>
+  <igx-carousel indicatorsOrientation="bottom" [interval]="2000">
     <igx-slide *ngFor="let slide of slides">
       <div class="image-container">
         <img *ngIf="slide.type === 'image'" [src]="slide.src" />
@@ -18,8 +18,8 @@
 
 
   <section class="welcome-section" aria-labelledby="welcome-title">
-    <p class="section-kicker">A marketplace for making</p>
-    <h1 id="welcome-title">Find something lovely<br /><em>to make with.</em></h1>
+    <p class="section-kicker">A marketplace for creation</p>
+    <h1 id="welcome-title">Find something lovely<br /><em>to be creative with.</em></h1>
     <p class="welcome-copy">
       Materials, kits, and small sparks of inspiration for wherever your
       curiosity takes you next.

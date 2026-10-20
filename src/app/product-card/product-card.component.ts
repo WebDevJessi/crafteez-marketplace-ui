@@ -15,6 +15,8 @@ import { MatButtonModule } from '@angular/material/button';
 export class ProductCardComponent {
   @Input({required:true}) product!:Product;
   @Output() addToCart = new EventEmitter<Product>();
+  @Output() removeQuantity = new EventEmitter<Product>();
+  @Input() quantity = 0;
 
   constructor() {}
 
@@ -22,5 +24,11 @@ export class ProductCardComponent {
 
     onAddToCart(): void {
     this.addToCart.emit(this.product);
+  }
+
+
+  onRemoveQuantity(): void {
+    // This method can be implemented to handle the removal of quantity if needed.
+    this.removeQuantity.emit(this.product);
   }
 }

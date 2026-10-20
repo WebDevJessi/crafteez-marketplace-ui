@@ -13,7 +13,13 @@
   } @else {
     <section class="products-grid" aria-label="Available products">
       @for (product of products; track product.id) {
-        <app-product-card [product]="product" (addToCart)="onAddToCart($event)"></app-product-card>
+        <app-product-card
+        [product]="product"
+        [quantity]="quantityFor(product)"
+        (addToCart)="onAddToCart($event)"
+        (removeQuantity)="onRemoveQuantity($event)"
+        >
+        </app-product-card>
       }
     </section>
   }

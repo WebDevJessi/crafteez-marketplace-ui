@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { Cart, CartItem } from "../models/cart.model";
 import { BehaviorSubject } from "rxjs";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -6,10 +6,17 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 @Injectable({
     providedIn: 'root',
 })
-export class CartService {
+export class CartService implements OnInit {
     cart = new BehaviorSubject<Cart>({ items: [] });
 
     constructor(private _snackBar: MatSnackBar) {}
+
+    ngOnInit(): void {
+        const cartData = localStorage.getItem('cart');
+        if (cartData) {
+            this.cart.next(JSON.parse(cartData));
+        }
+      }
 
     addToCart(item: CartItem): void {
         const items = [...this.cart.value.items];
@@ -34,7 +41,7 @@ export class CartService {
 
         if (updateCart) {
             this.cart.next({ items: filteredItems });
-            this._snackBar.open('1 item removed from cart.', 'Ok', { 
+            this._snackBar.open('1 item removed from cart.', 'Ok', {
                 duration: 3000,
              });
         }
@@ -67,7 +74,7 @@ export class CartService {
 
     clearCart(): void {
         this.cart.next({ items: [] });
-        this._snackBar.open('Cart is cleared.', 'Ok', { 
+        this._snackBar.open('Cart is cleared.', 'Ok', {
             duration: 3000,
          });
     }

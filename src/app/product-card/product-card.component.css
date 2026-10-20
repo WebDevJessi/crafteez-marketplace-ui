@@ -60,6 +60,28 @@
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
+.remove-from-cart-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: #f6c957;
+  color: #2c241c;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.increment-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: #f6c957;
+  color: #2c241c;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
 .add-to-cart-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18);

@@ -11,6 +11,7 @@
           {{ product.description }}
         </mat-card-content>
         <mat-card-actions class="product-card-actions">
+          @if (quantity === 0) {
           <button
             mat-raised-button
             color="primary"
@@ -20,6 +21,29 @@
           >
             Add to cart
           </button>
-        </mat-card-actions>
-        </mat-card>
+        } @else {
+          <div class="quantity-controller">
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            class="remove-from-cart-button"
+            (click)="onRemoveQuantity()"
+          >
+            -
+          </button>
+          <span class="quantity-display">{{ quantity }}</span>
+          <button
+            mat-raised-button
+            color="warn"
+            type="button"
+            class="increment-button"
+            (click)="onAddToCart()"
+            >
+            +
+          </button>
         </div>
+      }
+    </mat-card-actions>
+  </mat-card>
+</div>

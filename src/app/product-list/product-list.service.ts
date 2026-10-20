@@ -43,7 +43,7 @@ function extractProductRecords(response: unknown): BackendProduct[] {
   }
 
   const record = response as Record<string, unknown>;
-  const payload = record['data'] ?? record['products'] ?? response;
+  const payload = record['data'] ?? record['products'] ?? record['value'] ?? response;
 
   if (Array.isArray(payload)) {
     return payload as BackendProduct[];
@@ -73,6 +73,11 @@ function getPictureUrl(pictures: BackendProduct['pictures']): string | undefined
 }
 
 function toProduct(record: BackendProduct): Product {
+  const price = Number(record.price);
+  if (record.price === undefined || record.price === null || !Number.isFinite(price) || price < 0) {
+    throw new Error('Product API returned a product with an invalid price.');
+  }
+
   const suppliedImageUrl = record.imageUrl ?? getPictureUrl(record.pictures);
   const imageUrl = suppliedImageUrl
     ? (/^(https?:)?\/\//i.test(suppliedImageUrl) || suppliedImageUrl.startsWith('/')
@@ -83,7 +88,7 @@ function toProduct(record: BackendProduct): Product {
   return {
     id: record.id ?? record.slug ?? record.name ?? 'product',
     name: record.name ?? 'Untitled product',
-    price: Number(record.price ?? 0),
+    price,
     imageUrl,
     description: record.description ?? 'A handmade favorite from Crafteez.',
   };

@@ -1,91 +1,100 @@
-<mat-card *ngIf="cart.items.length" class="max-w-7xl mx-auto">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
-    <ng-container matColumnDef="product">
-      <th mat-header-cell *matHeaderCellDef>Product</th>
-      <td mat-cell *matCellDef="let element">
-        <img src="{{ element.product }}" alt="product" class="w-[100px] my-5" />
-      </td>
-      <td mat-footer-cell *matFooterCellDef>
-        <button mat-raised-button routerLink="/home">Continue Shopping</button>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">
-        <p class="truncate max-w-xs">{{ element.name }}</p>
-      </td>
-      <td mat-footer-cell *matFooterCellDef></td>
-    </ng-container>
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef>Price</th>
-      <td mat-cell *matCellDef="let element">{{ element.price }}</td>
-      <td mat-footer-cell *matFooterCellDef></td>
-    </ng-container>
-    <ng-container matColumnDef="quantity">
-      <th mat-header-cell *matHeaderCellDef>Quantity</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button (click)="onRemoveQuantity(element)">
-          <mat-icon>remove</mat-icon>
-        </button>
-        <span>{{ element.quantity }}</span>
-        <button mat-icon-button (click)="onAddQuantity(element)">
-          <mat-icon>add</mat-icon>
-        </button>
-      </td>
-      <td mat-footer-cell *matFooterCellDef></td>
-    </ng-container>
-    <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef>Total</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.quantity * element.price }}
-      </td>
-      <td mat-footer-cell *matFooterCellDef>
-        <span class="font-bold py-5 block">{{
-          getTotal(cart.items)
-        }}</span>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>
-        <button
-          (click)="onClearCart()"
-          mat-raised-button
-          color="warn"
-          class="float-right"
-        >
-          Clear All
-        </button>
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <button
-          (click)="onRemoveFromCart(element)"
-          mat-mini-fab
-          color="warn"
-          class="float-right"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
-      </td>
-      <td mat-footer-cell *matFooterCellDef>
-        <button
-          (click)="makePayment(getTotal(cart.items))"
-          mat-raised-button
-          color="primary"
-          class="float-right"
-        >
-          Proceed To Checkout
-        </button>
-      </td>
-    </ng-container>
+<main class="cart-page">
+  <header class="cart-heading">
+    <h1>Your <em>creative cart.</em></h1>
+    <p class="cart-intro">Review your items. Disclaimer: None of these products are for sale and this is not a real site. All photos are stock images and in no way represent real products.</p>
+  </header>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-  </table>
-</mat-card>
-<mat-card *ngIf="!cart.items.length" class="mx-auto my-3 max-w-7xl">
-  <p>
-    Your cart is empty.
-    <button mat-raised-button routerLink="/home">Start Shopping</button>
+  <p *ngIf="productRefreshError" class="cart-error" role="alert">
+    {{ productRefreshError }}
   </p>
-</mat-card>
+
+  <section *ngIf="cart.items.length; else emptyCart" class="cart-layout" aria-label="Your shopping cart">
+    <div class="cart-items">
+      <article *ngFor="let item of cart.items" class="cart-item">
+        <img class="cart-product-image" [src]="item.product" [alt]="item.name" />
+
+        <div class="cart-item-details">
+          <p class="item-kicker">Item</p>
+          <h2>{{ item.name }}</h2>
+          <p class="unit-price">{{ item.price | currency:'USD':'symbol':'1.2-2' }} each</p>
+          <button
+            mat-button
+            type="button"
+            class="remove-item"
+            (click)="onRemoveFromCart(item)"
+          >
+            Remove item
+          </button>
+        </div>
+
+        <div class="quantity-control" [attr.aria-label]="'Quantity for ' + item.name">
+          <button
+            mat-icon-button
+            type="button"
+            aria-label="Decrease quantity"
+            (click)="onRemoveQuantity(item)"
+          >
+            <mat-icon>remove</mat-icon>
+          </button>
+          <span class="quantity-value" aria-live="polite">{{ item.quantity }}</span>
+          <button
+            mat-icon-button
+            type="button"
+            aria-label="Increase quantity"
+            (click)="onAddQuantity(item)"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+
+        <p class="line-total">{{ item.quantity * item.price | currency:'USD':'symbol':'1.2-2' }}</p>
+      </article>
+
+      <div class="cart-list-actions">
+        <a routerLink="/app-product-list" class="continue-link">
+          <span aria-hidden="true">&#8592;</span> Keep browsing
+        </a>
+        <button mat-button type="button" class="clear-cart" (click)="onClearCart()">
+          Clear cart
+        </button>
+      </div>
+    </div>
+
+    <aside class="cart-summary" aria-labelledby="summary-title">
+      <p class="section-kicker">Almost yours</p>
+      <h2 id="summary-title">Order summary</h2>
+      <div class="summary-row">
+        <span>Items ({{ cart.items.length }})</span>
+        <span>{{ getTotal(cart.items) | currency:'USD':'symbol':'1.2-2' }}</span>
+      </div>
+      <p class="shipping-note">Shipping and any applicable taxes are calculated at checkout.</p>
+      <div class="summary-total">
+        <span>Estimated total</span>
+        <strong>{{ getTotal(cart.items) | currency:'USD':'symbol':'1.2-2' }}</strong>
+      </div>
+      <button
+        mat-raised-button
+        type="button"
+        class="checkout-button"
+        [disabled]="!productsLoaded"
+        (click)="makePayment(getTotal(cart.items))"
+      >
+        {{ productsLoaded ? 'Continue to checkout' : 'Checking your cart…' }}
+        <span aria-hidden="true">&#8594;</span>
+      </button>
+      <p class="secure-note">Your cart is saved while you browse.</p>
+    </aside>
+  </section>
+
+  <ng-template #emptyCart>
+    <section class="empty-cart">
+      <div class="empty-cart-mark" aria-hidden="true">✦</div>
+      <p class="section-kicker">Your next idea is waiting</p>
+      <h2>Your cart is empty, but your creativity isn't.</h2>
+      <p>Find a few materials, kits, or tiny sparks to get your creativity going.</p>
+      <a routerLink="/app-product-list" class="shop-link">
+        Explore the collection <span aria-hidden="true">&#8594;</span>
+      </a>
+    </section>
+  </ng-template>
+</main>

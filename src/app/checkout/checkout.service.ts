@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { environment } from "../../env.development";
 
 @Injectable({
   providedIn: 'root',
@@ -8,9 +9,15 @@ import { Observable } from "rxjs";
 export class CheckoutService {
   constructor(private http: HttpClient) {}
 
-  // Add any methods related to checkout functionality here
-  makePayment(stripeToken: any):Observable<any> {
-    const url = 'http://localhost:5001/checkout';
+  makePayment(
+    stripeToken: unknown,
+    items: Array<{ productId: number | string; quantity: number }>,
+  ): Observable<unknown> {
+    const url = `${environment.apiUrl.replace(/\/$/, '')}/checkout`;
 
-    return this.http.post<any>(url,{token: stripeToken})  }
+    return this.http.post<unknown>(url, {
+      token: stripeToken,
+      items,
+    });
+  }
 }

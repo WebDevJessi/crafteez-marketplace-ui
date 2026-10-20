@@ -1,46 +1,62 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Cart, CartItem } from '../models/cart.model';
 import { Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { CartService } from './cart.service';
-import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTableModule } from '@angular/material/table';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CheckoutService } from '../checkout/checkout.service';
+import { ProductListService } from '../product-list/product-list.service';
 
 
 @Component({
   selector: 'cart-location',
   standalone: true,
-  imports: [NgIf, RouterLink, MatCardModule, MatIconModule, MatButtonModule, MatSnackBarModule, MatTableModule],
+  imports: [CurrencyPipe, NgFor, NgIf, RouterLink, MatIconModule, MatButtonModule, MatSnackBarModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit, OnDestroy{
   cart: Cart = { items: [] };
-  displayedColumns: string[] = [
-    'product',
-    'name',
-    'price',
-    'quantity',
-    'total',
-    'action'
-  ];
-  dataSource: CartItem[] = [];
   cartSubscription: Subscription | undefined;
+  productsSubscription: Subscription | undefined;
+  productsLoaded = false;
+  productRefreshError = '';
   paymentHandler: any = null;
   
-  constructor(private cartService: CartService, private http: HttpClient, private checkoutService: CheckoutService) {}
+  constructor(
+    private cartService: CartService,
+    private checkoutService: CheckoutService,
+    private productListService: ProductListService,
+    private snackBar: MatSnackBar,
+  ) {}
 
   ngOnInit(): void {
     this.cartSubscription = this.cartService.cart.subscribe((_cart: Cart) => {
       this.cart = _cart;
-      this.dataSource = _cart.items;
     });
+
+    this.productsSubscription = this.productListService.products$.subscribe({
+      next: (products) => {
+        const unavailableCount = this.cartService.syncWithProducts(products);
+        this.productsLoaded = true;
+        this.productRefreshError = '';
+        if (unavailableCount > 0) {
+          this.snackBar.open(
+            'Items that are no longer available have been removed from your cart.',
+            'Ok',
+            { duration: 5000 },
+          );
+        }
+      },
+      error: (error) => {
+        console.error('Unable to refresh cart prices and availability:', error);
+        this.productRefreshError = 'Unable to verify current prices and availability. Checkout is disabled until products can be refreshed.';
+      },
+    });
+
     this.invokeStripe();
   }
 
@@ -66,6 +82,10 @@ export class CartComponent implements OnInit, OnDestroy{
 
 
   makePayment(amount: number) {
+    if (!this.productsLoaded || this.cart.items.length === 0) {
+      return;
+    }
+
     if (!this.paymentHandler) {
       console.error('Stripe Checkout is not ready yet.');
       return;
@@ -90,7 +110,12 @@ export class CartComponent implements OnInit, OnDestroy{
         key: 'pk_test_51UNEm9GZuzJDUcJcdFUbZjCyuAFJgFIyY2V69jIFIeWBvFGnzDQmmqaz1qqOtFtnJGCcl194i0fBct4rtyJOvsWX00mYq1eXVe',
         locale: 'auto',
         token: (stripeToken: any) => {
-          this.checkoutService.makePayment(stripeToken).subscribe({
+          const items = this.cart.items.map(({ id, quantity }) => ({
+            productId: id,
+            quantity,
+          }));
+
+          this.checkoutService.makePayment(stripeToken, items).subscribe({
             next: (data: any) => console.log(data),
             error: (error) => console.error('Stripe payment request failed:', error),
           });
@@ -117,6 +142,9 @@ export class CartComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     if (this.cartSubscription) {
       this.cartSubscription.unsubscribe();
+    }
+    if (this.productsSubscription) {
+      this.productsSubscription.unsubscribe();
     }
   }
 }

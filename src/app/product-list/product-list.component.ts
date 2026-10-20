@@ -50,15 +50,17 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cartService.cart
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ items }) => {
+        this.cartItems = items;
+      });
+
     this.productListService.products$.subscribe({
       next: (products) => {
         this.products = products;
         this.loading = false;
-        this.cartService.cart
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe(( { items } ) => {
-          this.cartItems = items;
-        });
+        this.cartService.syncWithProducts(products);
       },
       error: () => {
         this.errorMessage = 'Unable to load products. Check the backend connection and try again.';

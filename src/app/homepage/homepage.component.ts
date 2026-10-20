@@ -16,7 +16,7 @@ export class HomepageComponent {
   bannerBackground = "url('assets/Unleash_Your_creativity-removebg-preview.png')";
   featuredProducts = PRODUCTS.slice(0, 4);
   categories = [
-    { name: 'Soft & squishy', detail: 'Playful sensory favorites', image: '/assets/rainbow-cloud.jpg' },
+    { name: 'Soft & squishy', detail: 'Playful sensory favorites', image: '/assets/pink-crunchy-slime.jpg' },
     { name: 'Paint & color', detail: 'Tools for bright ideas', image: '/assets/gouache paint set.jpg' },
     { name: 'Stitch & make', detail: 'Start your next project', image: '/assets/yarn-kit.jpg' },
   ];

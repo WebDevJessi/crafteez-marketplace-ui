@@ -1,8 +1,10 @@
 import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IGX_CAROUSEL_DIRECTIVES, IgxCarouselModule, IgxIconComponent, IgxIconModule, IgxCardActionsComponent } from 'igniteui-angular';
-import { PRODUCTS } from '../product-list/product-data';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Product } from '../shared/types/product.interface';
+import { ProductListService } from '../product-list/product-list.service';
 
 @Component({
   selector: 'app-homepage',
@@ -11,10 +13,12 @@ import { PRODUCTS } from '../product-list/product-data';
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
-export class HomepageComponent {
+export class HomepageComponent implements OnInit {
   currentBackground = "url('assets/background.jpg')";
   bannerBackground = "url('assets/Unleash_Your_creativity-removebg-preview.png')";
-  featuredProducts = PRODUCTS.slice(0, 4);
+  featuredProducts: Product[] = [];
+  featuredProductsLoading = true;
+  featuredProductsError = '';
   categories = [
     { name: 'Soft & squishy', detail: 'Playful sensory favorites', image: '/assets/pink-crunchy-slime.jpg' },
     { name: 'Paint & color', detail: 'Tools for bright ideas', image: '/assets/gouache paint set.jpg' },
@@ -26,4 +30,26 @@ export class HomepageComponent {
     { src: '/assets/painting-example.jpg', type: 'image' },
     { src: '/assets/stationery-craft.jpg', type: 'image' },
   ];
+
+  constructor(
+    private productListService: ProductListService,
+    private destroyRef: DestroyRef,
+  ) {}
+
+  ngOnInit(): void {
+    this.productListService.products$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (products) => {
+          this.featuredProducts = products.slice(0, 4);
+          this.featuredProductsLoading = false;
+          this.featuredProductsError = '';
+        },
+        error: (error) => {
+          console.error('Unable to load featured products:', error);
+          this.featuredProductsLoading = false;
+          this.featuredProductsError = 'Featured products are temporarily unavailable.';
+        },
+      });
+  }
 }

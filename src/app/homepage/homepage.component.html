@@ -56,20 +56,28 @@
       </div>
       <a class="text-link" routerLink="/app-product-list">View collection <span aria-hidden="true">&#8594;</span></a>
     </div>
-    <div class="featured-grid">
-      @for (product of featuredProducts; track product.id) {
-        <article class="featured-card">
-          <img [src]="product.imageUrl" [alt]="product.name" />
-          <div class="featured-details">
-            <div>
-              <h3>{{ product.name }}</h3>
-              <p>{{ product.description }}</p>
+    @if (featuredProductsLoading) {
+      <p class="featured-status" role="status">Loading favorites…</p>
+    } @else if (featuredProductsError) {
+      <p class="featured-status featured-error" role="alert">{{ featuredProductsError }}</p>
+    } @else if (featuredProducts.length === 0) {
+      <p class="featured-status">There are no featured products right now.</p>
+    } @else {
+      <div class="featured-grid">
+        @for (product of featuredProducts; track product.id) {
+          <article class="featured-card">
+            <img [src]="product.imageUrl" [alt]="product.name" />
+            <div class="featured-details">
+              <div>
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description }}</p>
+              </div>
+              <span class="price">{{ product.price | currency:'USD':'symbol':'1.0-0' }}</span>
             </div>
-            <span class="price">{{ product.price | currency:'USD':'symbol':'1.0-0' }}</span>
-          </div>
-        </article>
-      }
-    </div>
+          </article>
+        }
+      </div>
+    }
   </section>
 
   <section class="maker-callout" aria-labelledby="maker-title">

@@ -343,6 +343,17 @@ body, html {
     gap: 16px;
 }
 
+.featured-status {
+    margin: 0;
+    padding: 28px 0;
+    color: #6f6255;
+    font-size: 1rem;
+}
+
+.featured-error {
+    color: #a6503d;
+}
+
 .featured-card {
     overflow: hidden;
     background: #eee2d2;

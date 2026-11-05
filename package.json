@@ -45,5 +45,9 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.4.2"
+  },
+  "overrides": {
+    "piscina": "4.9.4",
+    "tar": "7.5.21"
   }
 }

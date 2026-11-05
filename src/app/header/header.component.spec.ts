@@ -29,4 +29,12 @@ describe('HeaderComponent', () => {
     expect(Array.from(element.querySelectorAll('nav a')).map((link) => link.textContent?.trim()))
       .toEqual(['Home', 'Products', 'Cart', 'About']);
   });
+
+  it('links the brand to the home page', () => {
+    const brandLink = (fixture.nativeElement as HTMLElement).querySelector('.brand-link');
+
+    expect(brandLink?.getAttribute('href')).toBe('/');
+    expect(brandLink?.textContent).toContain('Crafteez');
+    expect(brandLink?.textContent).toContain('Marketplace');
+  });
 });

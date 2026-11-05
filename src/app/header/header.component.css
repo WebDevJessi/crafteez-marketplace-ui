@@ -41,6 +41,11 @@
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
+.brand-link {
+  color: inherit;
+  text-decoration: none;
+}
+
 .brand-title-accent {
   margin-left: 0.18em;
   color: #f6c957;

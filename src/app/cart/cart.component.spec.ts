@@ -109,10 +109,17 @@ describe('CartComponent', () => {
     component.onClearCart();
 
     expect(component.getTotal([cartItem])).toBe(24);
+    expect(component.getItemCount([cartItem])).toBe(2);
     expect(cartService.addToCart).toHaveBeenCalledWith(cartItem);
     expect(cartService.removeQuantity).toHaveBeenCalledWith(cartItem);
     expect(cartService.removeFromCart).toHaveBeenCalledWith(cartItem);
     expect(cartService.clearCart).toHaveBeenCalled();
+  });
+
+  it('shows unit count rather than distinct product count in the order summary', () => {
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.summary-row').textContent).toContain('Items (2)');
   });
 
   it('opens payment in cents when checkout is ready', () => {

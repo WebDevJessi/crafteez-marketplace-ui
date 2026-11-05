@@ -64,7 +64,7 @@
       <p class="section-kicker">Almost yours</p>
       <h2 id="summary-title">Order summary</h2>
       <div class="summary-row">
-        <span>Items ({{ cart.items.length }})</span>
+        <span>Items ({{ getItemCount(cart.items) }})</span>
         <span>{{ getTotal(cart.items) | currency:'USD':'symbol':'1.2-2' }}</span>
       </div>
       <p class="shipping-note">Shipping and any applicable taxes are calculated at checkout.</p>

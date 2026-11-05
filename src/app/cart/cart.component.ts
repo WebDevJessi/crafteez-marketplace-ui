@@ -64,6 +64,10 @@ export class CartComponent implements OnInit, OnDestroy{
     return this.cartService.getTotal(items);
   }
 
+  getItemCount(items: CartItem[]): number {
+    return items.reduce((count, item) => count + item.quantity, 0);
+  }
+
   onAddQuantity(item: CartItem): void {
     this.cartService.addToCart(item);
   }

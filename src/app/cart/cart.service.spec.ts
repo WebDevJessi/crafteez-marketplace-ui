@@ -155,6 +155,7 @@ describe('CartService', () => {
   });
 
   it('calculates totals and returns zero for an empty cart', () => {
+    expect(service.getTotal([{ ...item, price: 4, quantity: 2 }])).toBe(8);
     expect(service.getTotal([{ ...item, price: 4, quantity: 3 }, {
       ...item,
       id: 2,
